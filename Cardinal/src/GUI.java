@@ -7,6 +7,7 @@ import java.awt.event.*;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.GridLayout;
 /*
  * Temporary Quick layout for GUI
  */
@@ -16,14 +17,15 @@ public class GUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 2975177357369104744L;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
+	private JPasswordField textField_4;
+	private JTextArea txtArea1;
 	
 	public GUI() {
 		setTitle("CardinalBot");
-		setSize(469, 445);
+		setSize(469, 382);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		SpringLayout springLayout = new SpringLayout();
@@ -32,17 +34,17 @@ public class GUI extends JFrame {
 		JPanel panel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, panel, 0, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, panel, 406, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, 350, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, panel, 453, SpringLayout.WEST, getContentPane());
 		getContentPane().add(panel);
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
 		
 		JPanel panel_1 = new JPanel();
+		sl_panel.putConstraint(SpringLayout.SOUTH, panel_1, 103, SpringLayout.NORTH, panel);
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Reddit", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		sl_panel.putConstraint(SpringLayout.NORTH, panel_1, 10, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, panel_1, 10, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, panel_1, 162, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, panel_1, 443, SpringLayout.WEST, panel);
 		panel.add(panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
@@ -62,11 +64,10 @@ public class GUI extends JFrame {
 		textField.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "Twitter", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		sl_panel.putConstraint(SpringLayout.NORTH, panel_2, 6, SpringLayout.SOUTH, panel_1);
+		sl_panel.putConstraint(SpringLayout.NORTH, panel_2, 7, SpringLayout.SOUTH, panel_1);
 		sl_panel.putConstraint(SpringLayout.WEST, panel_2, 0, SpringLayout.WEST, panel_1);
-		sl_panel.putConstraint(SpringLayout.SOUTH, panel_2, 131, SpringLayout.SOUTH, panel_1);
-		sl_panel.putConstraint(SpringLayout.EAST, panel_2, 0, SpringLayout.EAST, panel_1);
+		sl_panel.putConstraint(SpringLayout.EAST, panel_2, -10, SpringLayout.EAST, panel);
+		panel_2.setBorder(new TitledBorder(null, "Twitter", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
 		JLabel lblNewLabel = new JLabel("Username");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -75,7 +76,7 @@ public class GUI extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JPasswordField();
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.anchor = GridBagConstraints.NORTHWEST;
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
@@ -109,7 +110,8 @@ public class GUI extends JFrame {
 		panel.add(panel_2);
 		
 		JButton btnGo = new JButton("Go");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnGo, 33, SpringLayout.SOUTH, panel_2);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnGo, -10, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnGo, -196, SpringLayout.EAST, panel);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{102, 86, 86, 46, 0};
 		gbl_panel_2.rowHeights = new int[]{20, 0, 0};
@@ -133,7 +135,7 @@ public class GUI extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_4 = new JTextField();
+		textField_4 = new JPasswordField();
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
 		gbc_textField_4.anchor = GridBagConstraints.NORTHWEST;
 		gbc_textField_4.insets = new Insets(0, 0, 0, 5);
@@ -148,15 +150,23 @@ public class GUI extends JFrame {
 		gbc_lblNewLabel_4.gridx = 2;
 		gbc_lblNewLabel_4.gridy = 1;
 		panel_2.add(lblNewLabel_4, gbc_lblNewLabel_4);
-		sl_panel.putConstraint(SpringLayout.WEST, btnGo, 202, SpringLayout.WEST, panel);
 		panel.add(btnGo);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "Status", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		sl_panel.putConstraint(SpringLayout.NORTH, panel_3, 6, SpringLayout.SOUTH, panel_2);
-		sl_panel.putConstraint(SpringLayout.WEST, panel_3, 6, SpringLayout.EAST, btnGo);
-		sl_panel.putConstraint(SpringLayout.SOUTH, panel_3, 103, SpringLayout.SOUTH, panel_2);
+		sl_panel.putConstraint(SpringLayout.NORTH, panel_3, 197, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, panel_3, -6, SpringLayout.NORTH, btnGo);
+		sl_panel.putConstraint(SpringLayout.SOUTH, panel_2, -6, SpringLayout.NORTH, panel_3);
+		sl_panel.putConstraint(SpringLayout.WEST, panel_3, 0, SpringLayout.WEST, panel_1);
 		sl_panel.putConstraint(SpringLayout.EAST, panel_3, 0, SpringLayout.EAST, panel_1);
+		panel_3.setBorder(new TitledBorder(null, "Status", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panel.add(panel_3);
+		panel_3.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		txtArea1 = new JTextArea(10,10);
+		txtArea1.setEditable(false);
+		JScrollPane txtStatus = new JScrollPane();
+		txtStatus.setViewportView(txtArea1);
+		
+		panel_3.add(txtStatus);
 	}
 }
