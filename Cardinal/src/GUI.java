@@ -17,10 +17,10 @@ public class GUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 2975177357369104744L;
 	private JTextField textField;
-	private JPasswordField textField_1;
+	private JPasswordField reddPassField;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JPasswordField textField_4;
+	private JPasswordField twitPassField;
 	private JTextArea txtArea1;
 	
 	public GUI() {
@@ -76,14 +76,14 @@ public class GUI extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField_1 = new JPasswordField();
+		reddPassField = new JPasswordField();
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.anchor = GridBagConstraints.NORTHWEST;
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.gridx = 1;
 		gbc_textField_1.gridy = 1;
-		panel_1.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		panel_1.add(reddPassField, gbc_textField_1);
+		reddPassField.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Password");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -110,6 +110,7 @@ public class GUI extends JFrame {
 		panel.add(panel_2);
 		
 		JButton btnGo = new JButton("Go");
+		btnGo.addActionListener(new GoCapture());
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnGo, -10, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnGo, -196, SpringLayout.EAST, panel);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
@@ -135,14 +136,14 @@ public class GUI extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_4 = new JPasswordField();
+		twitPassField = new JPasswordField();
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
 		gbc_textField_4.anchor = GridBagConstraints.NORTHWEST;
 		gbc_textField_4.insets = new Insets(0, 0, 0, 5);
 		gbc_textField_4.gridx = 1;
 		gbc_textField_4.gridy = 1;
-		panel_2.add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		panel_2.add(twitPassField, gbc_textField_4);
+		twitPassField.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Password");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
@@ -163,10 +164,31 @@ public class GUI extends JFrame {
 		panel_3.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		txtArea1 = new JTextArea(10,10);
+		txtArea1.setLineWrap(true);
+		txtArea1.setWrapStyleWord(true);
 		txtArea1.setEditable(false);
 		JScrollPane txtStatus = new JScrollPane();
 		txtStatus.setViewportView(txtArea1);
 		
 		panel_3.add(txtStatus);
+	}
+	private class GoCapture implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try{
+			String status = "Gathering Information";
+			txtArea1.setText(status);
+			String rUn = textField.getText();
+			char[] rPw = reddPassField.getPassword();
+			String rSubR = textField_2.getText();
+			String twitUn= textField_3.getText();
+			char[] twitPw = twitPassField.getPassword();
+			}catch (NullPointerException e1){
+			String nullFields = "Error: Fields can't be blank";
+			txtArea1.setText(nullFields);
+			}
+			
+		}
 	}
 }
