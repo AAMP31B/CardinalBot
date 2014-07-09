@@ -21,6 +21,12 @@ public class GUI extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JPasswordField twitPassField;
+	private String status;
+	private String rUn;
+	private char[] rPw;
+	private String rSubR;
+	private String twitUn;
+	private char[] twitPw;
 	private JTextArea txtArea1;
 	
 	public GUI() {
@@ -54,10 +60,9 @@ public class GUI extends JFrame {
 		panel_1.setLayout(gbl_panel_1);
 		
 		JPanel panel_2 = new JPanel();
-		sl_panel.putConstraint(SpringLayout.WEST, panel_2, 215, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, panel_1, -6, SpringLayout.WEST, panel_2);
 		sl_panel.putConstraint(SpringLayout.NORTH, panel_2, 22, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, panel_2, 0, SpringLayout.SOUTH, panel_1);
+		sl_panel.putConstraint(SpringLayout.WEST, panel_2, 215, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, panel_2, -79, SpringLayout.EAST, panel);
 		panel_2.setBorder(new TitledBorder(null, "Twitter", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
@@ -129,10 +134,11 @@ public class GUI extends JFrame {
 		
 		JPanel panel_3 = new JPanel();
 		sl_panel.putConstraint(SpringLayout.NORTH, panel_3, 6, SpringLayout.SOUTH, panel_1);
+		sl_panel.putConstraint(SpringLayout.WEST, panel_3, 10, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, panel_3, -127, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnGo, -38, SpringLayout.NORTH, panel_3);
-		sl_panel.putConstraint(SpringLayout.WEST, panel_3, 0, SpringLayout.WEST, panel_1);
 		sl_panel.putConstraint(SpringLayout.EAST, panel_3, -10, SpringLayout.EAST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, panel_2, -6, SpringLayout.NORTH, panel_3);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnGo, -38, SpringLayout.NORTH, panel_3);
 		
 		JLabel lblNewLabel_3 = new JLabel("Subreddit");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -164,6 +170,7 @@ public class GUI extends JFrame {
 		gbc_lblNewLabel_4.gridx = 2;
 		gbc_lblNewLabel_4.gridy = 1;
 		panel_2.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		
 		panel_3.setBorder(new TitledBorder(null, "Status", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panel.add(panel_3);
 		panel_3.setLayout(new GridLayout(1, 0, 0, 0));
@@ -174,25 +181,49 @@ public class GUI extends JFrame {
 		txtArea1.setEditable(false);
 		JScrollPane txtStatus = new JScrollPane();
 		txtStatus.setViewportView(txtArea1);
-		
 		panel_3.add(txtStatus);
 	}
+	public void addStatText(String x){
+		txtArea1.append(x+"\n");
+		}
+
 	private class GoCapture implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try{
-			String status = "Gathering Information";
-			txtArea1.setText(status);
-			String rUn = textField.getText();
-			char[] rPw = reddPassField.getPassword();
-			String rSubR = textField_2.getText();
-			String twitUn= textField_3.getText();
-			char[] twitPw = twitPassField.getPassword();
+			status = "Gathering Information";
+			addStatText(status);
+			getInfo();
+			
+			
+			if ((rUn.isEmpty())||(rSubR.isEmpty())||(twitUn.isEmpty()))
+			{
+				status = "Fields can't be empty.";
+				addStatText(status);
+			}
+			if ((reddPassField.getPassword().length==0)||(reddPassField.getPassword().length==0))
+			{
+				status = "Passwords can't be empty.";
+				addStatText(status);
+			}
+				
 			}catch (NullPointerException e1){
 			String nullFields = "Error: Fields can't be blank";
-			txtArea1.setText(nullFields);
+			addStatText(nullFields);
 			}
+			
+				
+			
+		}
+
+		private void getInfo() throws NullPointerException{
+			rUn = textField.getText();
+			rPw = reddPassField.getPassword();
+			rSubR = textField_2.getText();
+			twitUn= textField_3.getText();
+			twitPw = twitPassField.getPassword();
+		 
 			
 		}
 	}
